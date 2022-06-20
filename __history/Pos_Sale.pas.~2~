@@ -1,0 +1,32 @@
+unit Pos_Sale;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, VclTee.TeeGDIPlus, Data.DB,
+  VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart, VCLTee.DBChart, Vcl.StdCtrls,
+  Vcl.Imaging.jpeg, Vcl.ExtCtrls;
+
+type
+  TSales = class(TForm)
+    top: TPanel;
+    Image1: TImage;
+    Label1: TLabel;
+    Logo: TImage;
+    Panel1: TPanel;
+    DBChart1: TDBChart;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Sales: TSales;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,181 @@
+unit CafePos_MenuMod;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.jpeg, Vcl.ExtCtrls, Data.DB,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.Mask, WinAPI.shellapi;
+
+type
+  TMenuMod = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Image1: TImage;
+    Logo: TImage;
+    chSearchName: TCheckBox;
+    chsearchCategory: TCheckBox;
+    btnAdd: TButton;
+    btnSave: TButton;
+    Label1: TLabel;
+    ImageReset: TButton;
+    imageSave: TButton;
+    ImgLoad: TOpenDialog;
+    edtName: TDBEdit;
+    edtPrice: TDBEdit;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    btnDel: TButton;
+    MenusSource: TDataSource;
+    ImgMenu: TImage;
+    DBGrid1: TDBGrid;
+    DBEdit1: TDBEdit;
+    btncancel: TButton;
+    Label6: TLabel;
+    editSearch: TEdit;
+    procedure Image1Click(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+    procedure btnAddClick(Sender: TObject);
+    procedure MenusSourceDataChange(Sender: TObject; Field: TField);
+    procedure btnDelClick(Sender: TObject);
+    procedure ImageResetClick(Sender: TObject);
+    procedure MenusSourceStateChange(Sender: TObject);
+    procedure editSherchKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure imageSaveClick(Sender: TObject);
+    procedure chSearchNameClick(Sender: TObject);
+    procedure chsearchCategoryClick(Sender: TObject);
+    procedure btncancelClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MenuMod: TMenuMod;
+
+implementation
+
+{$R *.dfm}
+
+uses UDM, CommonFunctions;
+
+procedure TMenuMod.btnSaveClick(Sender: TObject);
+begin
+  dm.qryMenu.Post;
+  dm.qryMenu.Refresh;
+end;
+
+procedure TMenuMod.chsearchCategoryClick(Sender: TObject);
+begin
+if chsearchCategory.Checked = true then
+   chsearchName.Checked := false;
+   editSearch.Text := '';
+   dm.qryMenu.Filter := '';
+end;
+
+procedure TMenuMod.chSearchNameClick(Sender: TObject);
+begin
+if chsearchName.Checked = true then
+   chsearchCategory.Checked := false;
+   editSearch.Text := '';
+end;
+
+procedure TMenuMod.btnAddClick(Sender: TObject);
+begin
+  dm.qryMenu.Append;
+  edtseq.SetFocus;
+end;
+
+procedure TMenuMod.btncancelClick(Sender: TObject);
+begin
+  dm.qryMenu.Cancel;
+end;
+
+procedure TMenuMod.btnDelClick(Sender: TObject);
+var
+  title,msg : String;
+begin
+  title := dm.qryMenu.FieldByName('seq').AsString;
+  msg := format('[%s번] 메뉴를 삭제하시겠습니까?',[title]);
+  if messagedlg(msg,mtinformation,[mbyes,mbno],0) = mrNo then
+     exit;
+  dm.qryMenu.Delete;
+end;
+
+procedure TMenuMod.Image1Click(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TMenuMod.ImageResetClick(Sender: TObject);
+var
+f : Tfield;
+begin
+  imgMenu.Picture.Assign(nil);
+  f := dm.qryMenu.FieldByName('image');
+  if dm.qryMenu.State <> dsedit then
+     dm.qryMenu.Edit;
+  f.Assign(nil);
+end;
+
+procedure TMenuMod.imageSaveClick(Sender: TObject);
+var
+  field : Tfield;
+begin
+  if ImgLoad.Execute then
+    begin
+     LoadImageFromfile(imgMenu, ImgLoad.FileName);
+
+     field := DM.qryMenu.FieldByName('IMAGE');
+     SaveImageToBlobfield(imgMenu, Field as TBlobField);
+    end;
+end;
+
+procedure TMenuMod.editSherchKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  Filter: string;
+begin
+  Filter := '';
+
+  if editSearch.Text <> '' then
+  begin
+    if chsearchName.Checked then
+      Filter := Format('NAME like ''%%%s%%''', [editSearch.Text]);
+    if chsearchCategory.Checked then
+      Filter := Filter + Format('CATEGORY like ''%%%s%%''', [editSearch.Text]);
+  end;
+
+  dm.qryMenu.Filter := Filter;
+  dm.qryMenu.Filtered := (Filter <> '');
+end;
+
+
+procedure TMenuMod.MenusSourceDataChange(Sender: TObject; Field: TField);
+var
+ImgField : TField;
+begin
+  if Dm.qryMenu.State = dsEdit then
+     Exit;
+
+  ImgField := Dm.qryMenu.FieldByName('IMAGE');
+  if ImgField is TBlobField then
+     LoadImageFromBlobField(imgMenu, ImgField as TBlobField);
+end;
+
+procedure TMenuMod.MenusSourceStateChange(Sender: TObject);
+var
+DS : Tdatasetstate;
+begin
+  DS := dm.qryMenu.State;
+  btnadd.Enabled := (DS = dsBrowse);
+  btnsave.Enabled := (DS <> dsBrowse);
+  btncancel.Enabled := (DS <> dsBrowse);
+  btnDel.Enabled := (DS = dsBrowse) and (dm.qryMenu.RecordCount > 0);
+end;
+
+end.

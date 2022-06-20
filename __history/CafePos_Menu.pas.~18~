@@ -1,0 +1,41 @@
+unit CafePos_Menu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls,
+  System.ImageList, Vcl.ImgList;
+
+type
+  TPosMenu = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    btnLeft: TButton;
+    btnRight: TButton;
+    ImageList1: TImageList;
+    Button1: TButton;
+    procedure ChClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PosMenu: TPosMenu;
+
+implementation
+
+{$R *.dfm}
+
+uses CafePos_Table;
+
+{ TPosMenu }
+
+procedure TPosMenu.ChClick(Sender: TObject);
+begin
+  PosMenu.
+end;
+
+end.

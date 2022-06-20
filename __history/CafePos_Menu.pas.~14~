@@ -1,0 +1,88 @@
+unit CafePos_Menu;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls,
+  System.ImageList, Vcl.ImgList, FMX.Layers3D, FMX.Viewport3D, FMX.types3d, FMX.Types;
+
+type
+  TPosMenu = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    btnLeft: TButton;
+    btnRight: TButton;
+    Button3: TButton;
+    ImageList1: TImageList;
+    Button1: TButton;
+    procedure btnChClick(Sender: TObject);
+  private
+    { Private declarations }
+    Fviewport : TViewport3D;
+    FContainer : TLayer3D;
+    procedure SwitchTo3D;
+    procedure SwitchTo2D;
+  public
+    { Public declarations }
+  end;
+
+var
+  PosMenu: TPosMenu;
+
+implementation
+
+{$R *.dfm}
+
+uses CafePos_Table;
+
+{ TPosMenu }
+
+procedure TPosMenu.btnChClick(Sender: TObject);
+begin
+  tag := (sender as Tbutton).Tag;
+  case tag of
+    0 : begin
+          SwitchTo3D;
+          if Assigned(FContainer) then
+          begin
+            FContainer.AnimateFloat('position.x', 500, 1);
+            FContainer.AnimateFloatDelay('position.x', 0, 1, 1);
+            FContainer.AnimateFloatWait('RotationAngle.y', 360, 2, TAnimationType.InOut, TInterpolationType.Back);
+          end;
+          SwitchTo2D;
+        end;
+
+    1 : begin
+          SwitchTo3D;
+          if Assigned(FContainer) then
+          begin
+            FContainer.AnimateFloat('position.x', 500, 1);
+            FContainer.AnimateFloatDelay('position.x', 0, 1, 1);
+            FContainer.AnimateFloatWait('RotationAngle.y', 360, 2, TAnimationType.InOut, TInterpolationType.Back);
+          end;
+          SwitchTo2D;
+        end;
+  end;
+end;
+
+procedure TPosMenu.SwitchTo2D;
+begin
+  table.PnlMenu.Parent := self;
+  FreeAndNil(FViewport);
+end;
+
+procedure TPosMenu.SwitchTo3D;
+begin
+  FViewport := Tviewport3D.Create(Self);
+  FViewport.Parent := Self;
+  FViewport.Align := TAlignLayout.alClient;
+  //FViewport.Color := claNull;
+  FContainer := TLayer3D.Create(FViewport);
+  FContainer.Parent := FViewport;
+  FContainer.Projection := TProjection.pjScreen;
+  FContainer.Align := TAlignLayout.alClient;
+  table.PnlMenu.Parent := Fcontainer;
+end;
+
+end.

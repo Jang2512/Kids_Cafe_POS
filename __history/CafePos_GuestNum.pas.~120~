@@ -1,0 +1,259 @@
+unit CafePos_GuestNum;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.jpeg;
+
+type
+  TGuestNum = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Panel2: TPanel;
+    edtkid: TEdit;
+    btn1: TButton;
+    btn2: TButton;
+    btn3: TButton;
+    btn5: TButton;
+    btn4: TButton;
+    btn6: TButton;
+    btn8: TButton;
+    btn7: TButton;
+    btn9: TButton;
+    btn0: TButton;
+    btn11: TButton;
+    Ent: TButton;
+    Cancel: TButton;
+    btn10: TButton;
+    Panel3: TPanel;
+    edtadult: TEdit;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button6: TButton;
+    Button0: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
+    Button11: TButton;
+    Button14: TButton;
+    Button12: TButton;
+    Button10: TButton;
+    Label2: TLabel;
+    Label3: TLabel;
+    Image1: TImage;
+    procedure btnClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure Guest;
+  private
+    { Private declarations }
+    btn : array[0..9] of integer;
+  public
+    { Public declarations }
+  end;
+
+var
+  GuestNum: TGuestNum;
+  num : integer;
+
+implementation
+
+{$R *.dfm}
+
+uses CafePos_Table, CafePos_Main, UDM;
+
+procedure TGuestNum.btnClick(Sender: TObject);
+var
+tag, i : integer;
+delNum : string;
+cap : string;
+num : string;
+begin
+  tag := (sender as Tbutton).Tag;
+  i := 0;
+  if (tag>=0) and (tag<=9) then
+      begin
+        if (edtkid.Text = '0') and (Tag = 0) then
+             edtkid.Text := ''
+         else if(edtkid.Text='0') then
+           begin
+             edtkid.Clear;
+           end;
+          edtkid.Text := edtkid.Text + IntToStr(Tag);
+      end;
+
+      case tag of
+        11 : begin
+                delNum:=edtkid.Text;
+                Delete(delNum,length(delNum),1);
+                edtkid.Text:=delNum;
+                if edtkid.Text = '' then
+                   edtkid.Text := '0';
+             end;
+             
+        12 : begin
+               ent.Enabled := false;
+               btn0.Enabled := false;
+               btn1.Enabled := false;
+               btn2.Enabled := false;
+               btn3.Enabled := false;
+               btn4.Enabled := false;
+               btn5.Enabled := false;
+               btn6.Enabled := false;
+               btn7.Enabled := false;
+               btn8.Enabled := false;
+               btn9.Enabled := false;
+               btn10.Enabled := false;
+               btn11.Enabled := false;
+               cancel.Enabled := true;
+             end;
+             
+        13 : edtkid.Text := '0';
+        
+        14 : begin
+               ent.Enabled := true;
+               btn0.Enabled := true;
+               btn1.Enabled := true;
+               btn2.Enabled := true;
+               btn3.Enabled := true;
+               btn4.Enabled := true;
+               btn5.Enabled := true;
+               btn6.Enabled := true;
+               btn7.Enabled := true;
+               btn8.Enabled := true;
+               btn9.Enabled := true;
+               btn10.Enabled := true;
+               btn11.Enabled := true;
+               cancel.Enabled := false;
+             end;
+      end;
+
+  if (tag>=21) and (tag<=30) then
+      begin
+        if (edtAdult.Text = '0') and (Tag = 30) then
+             edtAdult.Text := ''
+         else if(edtAdult.Text='0') then
+           begin
+             edtAdult.Clear;
+           end;
+           num := (sender as Tbutton).Caption;
+           edtAdult.Text := edtAdult.Text + num;
+      end;
+
+      case tag of
+        31 : begin
+               delNum:=edtAdult.Text;
+               Delete(delNum,length(delNum),1);
+               edtAdult.Text:=delNum;
+               if edtAdult.Text = '' then
+                  edtAdult.Text := '0';
+             end;
+             
+        32 : begin
+               button0.Enabled := false;
+               button1.Enabled := false;
+               button2.Enabled := false;
+               button3.Enabled := false;
+               button4.Enabled := false;
+               button5.Enabled := false;
+               button6.Enabled := false;
+               button7.Enabled := false;
+               button8.Enabled := false;
+               button9.Enabled := false;
+               button10.Enabled := false;
+               button11.Enabled := false;
+               button12.Enabled := false;
+               button14.Enabled := true;
+             end;
+             
+        33 : edtAdult.Text := '0';
+        
+        34 : begin
+               button0.Enabled := true;
+               button1.Enabled := true;
+               button2.Enabled := true;
+               button3.Enabled := true;
+               button4.Enabled := true;
+               button5.Enabled := true;
+               button6.Enabled := true;
+               button7.Enabled := true;
+               button8.Enabled := true;
+               button9.Enabled := true;
+               button10.Enabled := true;
+               button11.Enabled := true;
+               button12.Enabled := true;
+               button14.Enabled := false;
+             end;
+      end;
+        if (ent.Enabled = false) and (button12.Enabled = false) then
+      begin
+        GuestNum.close;
+        Guest;
+        begin
+          table := Ttable.Create(self);
+          try
+            if table.ShowModal = mrOK then
+          finally
+            table.Free;
+          end;
+
+        end;
+      end;
+end;
+
+procedure TGuestNum.FormCreate(Sender: TObject);
+begin
+  SetWindowLong(edtkid.handle, GWL_STYLE ,GetWindowLong(edtkid.handle, GWL_STYLE) or ES_RIGHT);
+  SetWindowLong(edtAdult.handle, GWL_STYLE ,GetWindowLong(edtAdult.handle, GWL_STYLE) or ES_RIGHT);
+end;
+
+procedure TGuestNum.Guest;
+var
+  Kids, Adults, People, hi : String;
+  i, cash, pri : integer;
+  DateTime : TDateTime;
+begin
+  i := 2;
+  DateTime := Time;
+  Kids := edtkid.Text;
+  Adults := edtAdult.Text;
+  if dm.qryOrder_Menu.RecordCount > 0 then
+     exit;
+  for I := 1 to 2 do
+  begin
+    if i = 1 then
+      begin
+         People := Kids;
+         hi := '아이 ('+FormatDateTime('hh:nn AM/PM',DateTime)+')';
+         pri := 6000;
+      end
+    else
+      begin
+         People := Adults;
+         hi := '어른 ('+FormatDateTime('hh:nn AM/PM',DateTime)+')';
+         pri := 2000;
+      end;
+    dm.qryOrder_Menu.Insert;
+    dm.qryOrder_Menu.FieldByName('SEQ').AsInteger := i;
+    //dm.qryOrder_Menu.FieldByName('TABLE_NUM') :=
+    dm.qryOrder_Menu.FieldByName('menu_seq').AsInteger := i;
+    dm.qryOrder_Menu.FieldByName('Menu_name').AsString := hi;
+    dm.qryOrder_Menu.FieldByName('QUANTITY').AsInteger := strtoint(People);
+    DM.qryOrder_Menu.FieldByName('PRICE').AsInteger := pri;
+    cash := DM.qryOrder_Menu.FieldByName('QUANTITY').AsInteger * DM.qryOrder_Menu.FieldByName('PRICE').AsInteger;
+    dm.qryOrder_Menu.FieldByName('CASH').AsInteger := cash;
+    dm.qryOrder_Menu.post;
+  end;
+end;
+
+procedure TGuestNum.Image1Click(Sender: TObject);
+begin
+  close;
+end;
+
+end.

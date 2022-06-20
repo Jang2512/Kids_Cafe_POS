@@ -1,0 +1,391 @@
+object GuestNum: TGuestNum
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'GuestNum'
+  ClientHeight = 683
+  ClientWidth = 978
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 120
+  TextHeight = 16
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 978
+    Height = 75
+    Align = alTop
+    TabOrder = 0
+    object Label1: TLabel
+      AlignWithMargins = True
+      Left = 270
+      Top = 17
+      Width = 452
+      Height = 40
+      Alignment = taCenter
+      Caption = #44256#44061#51032' '#49688#47484' '#51077#47141#54616#49464#50836'.'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -40
+      Font.Name = #44404#47548
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 75
+    Width = 489
+    Height = 608
+    TabOrder = 1
+    object Label2: TLabel
+      Left = 417
+      Top = 0
+      Width = 66
+      Height = 51
+      Caption = #50500#51060
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -42
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object kid: TEdit
+      Left = 130
+      Top = 33
+      Width = 233
+      Height = 65
+      AutoSize = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -50
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      Text = '0'
+    end
+    object btn1: TButton
+      Tag = 1
+      Left = 34
+      Top = 129
+      Width = 105
+      Height = 65
+      Caption = '1'
+      TabOrder = 1
+      OnClick = btnClick
+    end
+    object btn2: TButton
+      Tag = 2
+      Left = 186
+      Top = 129
+      Width = 105
+      Height = 65
+      Caption = '2'
+      TabOrder = 2
+      OnClick = btnClick
+    end
+    object btn3: TButton
+      Tag = 3
+      Left = 338
+      Top = 129
+      Width = 105
+      Height = 65
+      Caption = '3'
+      TabOrder = 3
+      OnClick = btnClick
+    end
+    object btn6: TButton
+      Tag = 6
+      Left = 338
+      Top = 225
+      Width = 105
+      Height = 65
+      Caption = '6'
+      TabOrder = 4
+      OnClick = btnClick
+    end
+    object btn0: TButton
+      Left = 186
+      Top = 417
+      Width = 105
+      Height = 65
+      Caption = '0'
+      TabOrder = 5
+      OnClick = btnClick
+    end
+    object btn4: TButton
+      Tag = 4
+      Left = 34
+      Top = 225
+      Width = 105
+      Height = 65
+      Caption = '4'
+      TabOrder = 6
+      OnClick = btnClick
+    end
+    object btn5: TButton
+      Tag = 5
+      Left = 186
+      Top = 225
+      Width = 105
+      Height = 65
+      Caption = '5'
+      TabOrder = 7
+      OnClick = btnClick
+    end
+    object btn7: TButton
+      Tag = 7
+      Left = 34
+      Top = 321
+      Width = 105
+      Height = 65
+      Caption = '7'
+      TabOrder = 8
+      OnClick = btnClick
+    end
+    object btn8: TButton
+      Tag = 8
+      Left = 186
+      Top = 321
+      Width = 105
+      Height = 65
+      Caption = '8'
+      TabOrder = 9
+      OnClick = btnClick
+    end
+    object btn9: TButton
+      Tag = 9
+      Left = 338
+      Top = 321
+      Width = 105
+      Height = 65
+      Caption = '9'
+      TabOrder = 10
+      OnClick = btnClick
+    end
+    object btn11: TButton
+      Tag = 11
+      Left = 338
+      Top = 417
+      Width = 105
+      Height = 65
+      Caption = '<-'
+      TabOrder = 11
+      OnClick = btnClick
+    end
+    object Cancel: TButton
+      Tag = 14
+      Left = 274
+      Top = 503
+      Width = 105
+      Height = 65
+      Caption = #52712#49548
+      TabOrder = 12
+      OnClick = btnClick
+    end
+    object Ent: TButton
+      Tag = 12
+      Left = 106
+      Top = 503
+      Width = 105
+      Height = 65
+      Caption = #46321#47197
+      TabOrder = 13
+      OnClick = btnClick
+    end
+    object btn10: TButton
+      Tag = 13
+      Left = 34
+      Top = 417
+      Width = 105
+      Height = 65
+      Caption = 'C'
+      TabOrder = 14
+      OnClick = btnClick
+    end
+  end
+  object Panel3: TPanel
+    Left = 489
+    Top = 75
+    Width = 489
+    Height = 608
+    TabOrder = 2
+    object Label3: TLabel
+      Left = 415
+      Top = 0
+      Width = 66
+      Height = 51
+      Caption = #50612#47480
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -42
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object adult: TEdit
+      Left = 130
+      Top = 33
+      Width = 233
+      Height = 65
+      AutoSize = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -50
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      Text = '0'
+    end
+    object Button1: TButton
+      Tag = 21
+      Left = 34
+      Top = 129
+      Width = 105
+      Height = 65
+      Caption = '1'
+      TabOrder = 2
+      OnClick = btnClick
+    end
+    object Button2: TButton
+      Tag = 22
+      Left = 186
+      Top = 129
+      Width = 105
+      Height = 65
+      Caption = '2'
+      TabOrder = 3
+      OnClick = btnClick
+    end
+    object Button3: TButton
+      Tag = 23
+      Left = 338
+      Top = 129
+      Width = 105
+      Height = 65
+      Caption = '3'
+      TabOrder = 4
+      OnClick = btnClick
+    end
+    object Button6: TButton
+      Tag = 26
+      Left = 338
+      Top = 225
+      Width = 105
+      Height = 65
+      Caption = '6'
+      TabOrder = 7
+      OnClick = btnClick
+    end
+    object Button0: TButton
+      Tag = 30
+      Left = 186
+      Top = 417
+      Width = 105
+      Height = 65
+      Caption = '0'
+      TabOrder = 0
+      OnClick = btnClick
+    end
+    object Button4: TButton
+      Tag = 24
+      Left = 34
+      Top = 225
+      Width = 105
+      Height = 65
+      Caption = '4'
+      TabOrder = 5
+      OnClick = btnClick
+    end
+    object Button5: TButton
+      Tag = 25
+      Left = 186
+      Top = 225
+      Width = 105
+      Height = 65
+      Caption = '5'
+      TabOrder = 6
+      OnClick = btnClick
+    end
+    object Button7: TButton
+      Tag = 27
+      Left = 34
+      Top = 321
+      Width = 105
+      Height = 65
+      Caption = '7'
+      TabOrder = 8
+      OnClick = btnClick
+    end
+    object Button8: TButton
+      Tag = 28
+      Left = 186
+      Top = 321
+      Width = 105
+      Height = 65
+      Caption = '8'
+      TabOrder = 9
+      OnClick = btnClick
+    end
+    object Button9: TButton
+      Tag = 29
+      Left = 338
+      Top = 321
+      Width = 105
+      Height = 65
+      Caption = '9'
+      TabOrder = 10
+      OnClick = btnClick
+    end
+    object Button11: TButton
+      Tag = 31
+      Left = 338
+      Top = 417
+      Width = 105
+      Height = 65
+      Caption = '<-'
+      TabOrder = 11
+      OnClick = btnClick
+    end
+    object Button14: TButton
+      Tag = 34
+      Left = 274
+      Top = 503
+      Width = 105
+      Height = 65
+      Caption = #52712#49548
+      TabOrder = 12
+      OnClick = btnClick
+    end
+    object Button12: TButton
+      Tag = 32
+      Left = 106
+      Top = 503
+      Width = 105
+      Height = 65
+      Caption = #46321#47197
+      TabOrder = 13
+      OnClick = btnClick
+    end
+    object Button10: TButton
+      Tag = 33
+      Left = 34
+      Top = 417
+      Width = 105
+      Height = 65
+      Caption = 'C'
+      TabOrder = 14
+      OnClick = btnClick
+    end
+  end
+end
